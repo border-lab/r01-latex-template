@@ -97,6 +97,12 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
+% -- 2-aim vs 3-aim toggle --
+% Defaults to false. \aimthreetrue is set at the top of approach-aim3.tex
+% so that when (and only when) that file is \input'd, the timeline section
+% picks C.4 instead of C.3.
+\newif\ifaimthree
+
 % -- Custom commands --
 \newcommand{\aimheader}[1]{\subsection*{#1}}
 % Heading commands that produce bold text without LaTeX section machinery.

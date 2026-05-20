@@ -131,8 +131,9 @@ The default is a 2-aim grant. To switch to 3-aim:
 2. In `science/research-strategy.tex`, uncomment the matching `\input` line.
 3. Add Aim 3 stanzas to `science/specific-aims.tex` and
    `science/innovation.tex` (each has a commented-out `Aim 3` block).
-4. Renumber the timeline header in `science/approach-timeline.tex` from
-   `C.X` to `C.4` (2-aim default would be `C.3`).
+
+The timeline header (`C.3 Timeline` vs `C.4 Timeline`) auto-renumbers from
+an `\ifaimthree` flag in `sty/nih-r01.sty` — no manual edit needed.
 
 To go back to 2-aim, re-comment the two `\input{approach-aim3.tex}` lines.
 
