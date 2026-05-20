@@ -9,6 +9,18 @@ toolchain works before writing any content.
 
 Overengineered with the help of an AI coding assistant (duh).
 
+## What the output looks like
+
+![Preview of the four pages of pdf/combined.pdf](docs/combined-preview.png)
+
+The default build of `science/combined.tex` (Specific Aims + Research
+Strategy + bibliography) renders to four pages of Arial in NIH formatting:
+specific aims on the first page, then the research-strategy sections with
+`\lipsum`-filled bodies, the demo `wrapfigure` (the rectangular placeholder
+in the upper-right of the Significance page) with its caption, and the
+empty References block at the end. The actual PDF is committed at
+[`pdf/combined.pdf`](pdf/combined.pdf).
+
 ## Quick start
 
 Copy the template to a new grant directory:

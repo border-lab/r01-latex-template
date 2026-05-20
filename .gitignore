@@ -1,6 +1,8 @@
 # Build directories
 build/
-pdf/
+pdf/*
+# ...but keep the demo combined PDF that the README links to.
+!pdf/combined.pdf
 
 # Core LaTeX intermediates
 *.aux
