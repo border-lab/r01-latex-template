@@ -9,7 +9,7 @@ toolchain works before writing any content.
 
 Overengineered with the help of an AI coding assistant (duh).
 
-## What the output looks like
+## Sample output
 
 ![Preview of the four pages of pdf/combined.pdf](docs/combined-preview.png)
 
