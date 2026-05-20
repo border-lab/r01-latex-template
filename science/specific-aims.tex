@@ -1,0 +1,76 @@
+% Specific Aims — NIH R01 (standalone, 1 page, no bibliography)
+% Compiled with: lualatex
+\documentclass[11pt,letterpaper]{article}
+
+% -- Fonts (NIH: >= 11pt, Arial) --
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+% -- Page geometry (NIH: >= 0.5in margins) --
+\usepackage[margin=0.5in]{geometry}
+\usepackage{setspace}
+\singlespacing
+
+% -- Formatting --
+\usepackage[normalem]{ulem}  % \uline for underline without changing \emph
+\usepackage{enumitem}
+
+% -- Placeholder text (remove with ./strip-lipsum.sh once you start writing) --
+\usepackage{lipsum}
+
+
+% -- No paragraph indent, compact skip --
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% -- No page numbers --
+\pagestyle{empty}
+
+\begin{document}
+\enlargethispage{0.4in}
+\vspace*{-0.15in}
+\textbf{SPECIFIC AIMS}
+\vspace{-2pt}
+
+% TODO: Opening paragraph — set the scientific context. Two to four sentences
+%   establishing the field, the unmet need, and why this problem matters now.
+\lipsum[1]
+
+\vspace{2pt}
+% TODO: Problem paragraph — frame the critical gap. Make the limitation of
+%   current approaches concrete; end with a sentence that motivates the proposal.
+\lipsum[2]
+
+% TODO: Long-term goal / objective paragraph. One or two sentences on the
+%   long-term goal of the research program and what this proposal
+%   accomplishes. A short transition sentence introduces the aims.
+\lipsum[3]
+
+\textbf{Aim 1: <Aim 1 title>.}
+% TODO: 2--4 sentences describing Aim 1.
+\textit{Aim 1A:\ <Subaim 1A title>.}
+% TODO: 1--2 sentences on Subaim 1A.
+\textit{Aim 1B:\ <Subaim 1B title>.}
+% TODO: 1--2 sentences on Subaim 1B.
+
+\textbf{Aim 2: <Aim 2 title>.}
+% TODO: 2--4 sentences describing Aim 2.
+\textit{Aim 2A:\ <Subaim 2A title>.}
+% TODO
+\textit{Aim 2B:\ <Subaim 2B title>.}
+% TODO
+
+% -- Optional Aim 3 (uncomment for 3-aim grants) --
+% \textbf{Aim 3: <Aim 3 title>.}
+% % TODO: 2--4 sentences describing Aim 3.
+% \textit{Aim 3A:\ <Subaim 3A title>.}
+% % TODO
+% \textit{Aim 3B:\ <Subaim 3B title>.}
+% % TODO
+
+% TODO: Closing impact statement (one sentence in bold) summarizing what the
+%   aims together will deliver.
+\textbf{Together, these aims will % TODO
+.}
+
+\end{document}

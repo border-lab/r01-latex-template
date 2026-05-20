@@ -1,0 +1,44 @@
+%!TEX root = research-strategy.tex
+% NIH R01 Research Strategy — Significance
+% Compiled with: lualatex + biber
+\documentclass[11pt,letterpaper]{article}
+\usepackage{nih-r01}
+
+\begin{document}
+
+\section{A. Significance}
+
+% TODO: Establish the importance of the problem. Two to four paragraphs.
+%   Cite foundational and recent prior work \cite{KEY}. Identify the critical
+%   gap your work addresses. Avoid review-article tone; frame around the
+%   specific problem this proposal solves.
+\lipsum[4]
+
+% Tight wrapfigure pattern — replace placeholder.pdf with a real figure.
+% The negative \vspace values pull the figure flush with surrounding text;
+% the wrapfigure float floats to the right (use {l} for left) and reserves
+% 0.28\textwidth of column width.
+\begin{wrapfigure}{r}{0.28\textwidth}
+\vspace{-8pt}
+\includegraphics[width=0.28\textwidth]{placeholder.pdf}
+\vspace{-4pt}
+\caption{Placeholder figure --- replace with a real figure and edit this caption.}
+\vspace{-8pt}
+\end{wrapfigure}
+
+\noindent\textbf{<Sub-significance heading 1>.}
+% TODO: One to two paragraphs developing the first significance theme.
+\lipsum[5]
+
+\noindent\textbf{<Sub-significance heading 2>.}
+% TODO: One to two paragraphs developing the second significance theme.
+\lipsum[6]
+
+% TODO: Closing paragraph that bridges into the proposal — name Aims 1 and 2
+%   (and Aim 3 if applicable) and summarize how they address the gap. Cite
+%   preliminary work that supports feasibility.
+\lipsum[7]
+
+\printbibliography[title={BIBLIOGRAPHY \& REFERENCES CITED}]
+
+\end{document}

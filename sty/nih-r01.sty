@@ -1,0 +1,122 @@
+% nih-r01.sty — Shared formatting for NIH R01 LaTeX documents
+% Include with \usepackage{nih-r01} after \documentclass
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nih-r01}[2026/05/20 NIH R01 shared formatting]
+
+% -- Fonts (NIH: >= 11pt, Arial) --
+\RequirePackage{fontspec}
+\setmainfont{Arial}
+
+% -- Page geometry (NIH: >= 0.5in margins) --
+\RequirePackage[margin=0.5in]{geometry}
+\RequirePackage{setspace}
+\singlespacing
+
+% -- Math (sans-serif to match Arial body) --
+% Latin Modern Math for symbols/operators; Arial for letters, digits, Greek
+\RequirePackage{unicode-math}
+\setmathfont{Latin Modern Math}
+\setmathfont{Arial}[range={up,\partial}]
+\setmathfont{Arial Italic}[range=it]
+
+% -- Graphics and tables --
+\RequirePackage{graphicx}
+% Figures live at <repo-root>/figures/; .tex files are compiled from science/
+% or support/ (one level below repo root), so figures/ is at ../figures/.
+\graphicspath{{../figures/}}
+\RequirePackage{wrapfig}
+\RequirePackage{caption}
+\captionsetup{font=scriptsize, labelfont=bf, labelsep=period, skip=2pt}
+\captionsetup[table]{font=scriptsize, labelfont=bf, labelsep=period, skip=2pt}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\RequirePackage{colortbl}
+\RequirePackage[inline]{enumitem}
+% Compact lists: bullet at column edge, text wraps to column edge
+\setlist{leftmargin=0pt, itemindent=1.5em, labelwidth=1em, labelsep=0.5em,
+  itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt}
+
+% -- Formatting --
+\RequirePackage[normalem]{ulem}
+
+% -- Section formatting --
+% Labels (A., C.3.2, etc.) are hardcoded in section titles; suppress auto-numbering
+\RequirePackage{titlesec}
+\titleformat{\section}{\normalsize\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0pt}{}
+\titleformat{\paragraph}[runin]{\normalsize\bfseries}{}{0pt}{}[.]
+\titlespacing*{\section}{0pt}{4pt}{-\parskip}        % top-level (A/B/C); cancel parskip after heading
+\titlespacing*{\subsection}{0pt}{2pt}{-\parskip}    % C.1, C.2, etc.
+\titlespacing*{\subsubsection}{0pt}{2pt}{-\parskip} % C.2.1, C.3.2, etc.
+\titlespacing*{\paragraph}{0pt}{2pt}{0.5em}   % run-in headers
+
+% -- Bibliography (biblatex + biber) --
+\RequirePackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none,
+  giveninits=true,
+  maxnames=6,
+  minnames=3,
+  autocite=superscript,
+  doi=false,
+  isbn=false,
+  url=false,
+  eprint=false,
+  autopunct=false,
+]{biblatex}
+\addbibresource{references.bib}
+
+% Superscript citations: make \cite produce superscripts
+\let\cite\autocite
+% Reduce superscript citation font size to minimize line-height impact
+\renewcommand{\mkbibsuperscript}[1]{\raisebox{0.7ex}{\scalebox{0.65}{#1}}}
+
+% Compact bibliography
+\renewcommand*{\bibfont}{\small}
+\setlength\bibitemsep{0pt}
+
+\RequirePackage{xcolor}
+\RequirePackage{colortbl}
+
+% -- Headers/footers --
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\rfoot{}
+
+
+% -- Placeholder text (remove with ./strip-lipsum.sh once you start writing) --
+\RequirePackage{lipsum}
+
+% -- Tight lists from pandoc --
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% -- Custom commands --
+\newcommand{\aimheader}[1]{\subsection*{#1}}
+% Heading commands that produce bold text without LaTeX section machinery.
+% Avoids wrapfigure conflicts, orphan penalties, and parskip accumulation.
+\newcommand{\heading}[1]{\vspace{4pt}\noindent\textbf{#1}\par\vspace{-\parskip}}       % C.1, C.2 level
+\newcommand{\subheading}[1]{\vspace{2pt}\noindent\textbf{#1}\par\vspace{-\parskip}}    % C.1A, C.1A.1 level
+
+% -- No paragraph indent, compact skip --
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+
+% -- Disable widow/orphan prevention for tight page packing --
+\widowpenalty=0
+\clubpenalty=0
+\displaywidowpenalty=0
+
+% -- Compact display equations --
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{3pt}%
+  \setlength{\belowdisplayskip}{3pt}%
+  \setlength{\abovedisplayshortskip}{1pt}%
+  \setlength{\belowdisplayshortskip}{1pt}%
+}

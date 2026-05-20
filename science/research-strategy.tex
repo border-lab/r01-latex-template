@@ -1,0 +1,39 @@
+% Research Strategy (Significance + Innovation + Approach)
+% Compiled with: lualatex + biber
+\documentclass[11pt,letterpaper]{article}
+\usepackage{docmute}   % strips preamble/document env from \input'd files
+\usepackage{nih-r01}   % shared formatting (fonts, layout, biblatex, etc.)
+
+\begin{document}
+
+\textbf{RESEARCH STRATEGY}
+\vspace{-4pt}
+
+% Suppress per-section bibliographies (bibliography is a separate document
+% built from approach.tex via build.sh).
+\renewcommand{\printbibliography}[1][]{}
+\def\nobib{1}
+
+% -- A. Significance --
+\input{significance.tex}
+
+% -- B. Innovation --
+\input{innovation.tex}
+
+% -- C. Approach --
+\section{C. Approach}
+
+\input{approach-intro.tex}
+
+\input{approach-aim1.tex}
+
+\input{approach-aim2.tex}
+
+% -- 3-aim toggle --
+% Uncomment for a three-aim grant. Also uncomment the matching line in
+% approach.tex and add Aim 3 material to specific-aims.tex and innovation.tex.
+% \input{approach-aim3.tex}
+
+\input{approach-timeline.tex}
+
+\end{document}

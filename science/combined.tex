@@ -1,0 +1,33 @@
+% Combined Specific Aims + Research Strategy (for internal review / preview).
+% NIH submissions are uploaded as separate documents; this combined PDF is
+% for convenient reading during writing.
+% Compiled with: lualatex + biber
+\documentclass[11pt,letterpaper]{article}
+\usepackage{docmute}   % strips preamble/document env from \input'd files
+\usepackage{nih-r01}   % shared formatting (fonts, layout, biblatex, etc.)
+
+\begin{document}
+
+% === Specific Aims (no bibliography) ===
+\input{specific-aims.tex}
+
+\newpage
+
+% === Research Strategy ===
+\textbf{RESEARCH STRATEGY}
+\vspace{-4pt}
+
+% Suppress per-section bibliographies; print one combined bib at end.
+\let\oldprintbibliography\printbibliography
+\renewcommand{\printbibliography}[1][]{}
+
+\input{significance.tex}
+\input{innovation.tex}
+\input{approach.tex}
+
+% === Combined Bibliography ===
+\let\printbibliography\oldprintbibliography
+\clearpage
+\printbibliography[title={BIBLIOGRAPHY \& REFERENCES CITED}]
+
+\end{document}

@@ -1,0 +1,33 @@
+% nih-r01-support.sty — Shared formatting for NIH R01 support documents (no bibliography)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nih-r01-support}[2026/05/20 NIH R01 support document formatting]
+
+% -- Fonts (NIH: >= 11pt, Arial) --
+\RequirePackage{fontspec}
+\setmainfont{Arial}
+
+% -- Page geometry (NIH: >= 0.5in margins) --
+\RequirePackage[margin=0.5in]{geometry}
+\RequirePackage{setspace}
+\singlespacing
+
+% -- Lists --
+\RequirePackage[inline]{enumitem}
+\setlist{leftmargin=0pt, itemindent=1.5em, labelwidth=1em, labelsep=0.5em,
+  itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt}
+
+% -- Section formatting --
+\RequirePackage{titlesec}
+\titleformat{\section}{\normalsize\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0pt}{}
+\titleformat{\paragraph}[runin]{\normalsize\bfseries}{}{0pt}{}[.]
+\titlespacing*{\section}{0pt}{4pt}{0pt}
+\titlespacing*{\subsection}{0pt}{4pt}{0pt}
+\titlespacing*{\paragraph}{0pt}{2pt}{0.5em}
+
+% -- No paragraph indent, compact skip --
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+
+% -- No page numbers --
+\pagestyle{empty}

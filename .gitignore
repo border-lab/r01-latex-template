@@ -1,0 +1,79 @@
+# Build directories
+build/
+pdf/
+
+# Core LaTeX intermediates
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+# Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.*
+
+# Bibliography auxiliary files
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# Build tool auxiliary files
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# hyperref
+*.brf
+
+# listings
+*.lol
+
+# makeindex
+*.idx
+*.ilg
+*.ind
+*.ist
+
+# glossaries / acronyms
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+
+# minted
+_minted*
+*.pyg
+
+# todonotes
+*.tdo
+
+# xindy
+*.xdy
+
+# Backup and editor noise
+*.bak
+*~
+*.swp
+.DS_Store
+texput.log
+
+# Claude Code project state (per-user; do not publish)
+.claude/

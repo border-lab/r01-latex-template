@@ -1,0 +1,34 @@
+%!TEX root = research-strategy.tex
+% NIH R01 Research Strategy — Approach (standalone)
+% Compiled with: lualatex + biber
+\documentclass[11pt,letterpaper]{article}
+\usepackage{nih-r01}
+
+\begin{document}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{C. Approach}\label{c.-approach}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{approach-intro.tex}
+
+\input{approach-aim1.tex}
+
+\input{approach-aim2.tex}
+
+% -- 3-aim toggle --
+% Uncomment the next line for a three-aim grant. Also uncomment the
+% matching line in research-strategy.tex and any aim-3 sections in
+% specific-aims.tex and innovation.tex.
+% \input{approach-aim3.tex}
+
+\input{approach-timeline.tex}
+
+% When \nobib is defined (via command-line \def), suppress bibliography here.
+% Used by build.sh to produce separate approach and bibliography PDFs.
+\ifdefined\nobib\else
+\clearpage
+\printbibliography[title={BIBLIOGRAPHY \& REFERENCES CITED}]
+\fi
+
+\end{document}
