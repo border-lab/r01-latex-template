@@ -83,8 +83,8 @@ e.g., `approach-aim1.tex` compiles the right parent doc. Overleaf reads
 ## When using this template for a new grant
 
 ```bash
-cp -r ~/Dropbox/grants/R01-latex-template ~/Dropbox/grants/<new-grant>
-cd ~/Dropbox/grants/<new-grant>
+git clone https://github.com/border-lab/r01-latex-template <new-grant>
+cd <new-grant>
 rm -rf .git build pdf
 git init
 ./build.sh all          # smoke-test

@@ -12,8 +12,7 @@ toolchain works before writing any content.
 Copy the template to a new grant directory:
 
 ```bash
-# from ~/Dropbox/grants or wherever you keep grants
-cp -r R01-latex-template myinst-r01-2027
+git clone https://github.com/border-lab/r01-latex-template myinst-r01-2027
 cd myinst-r01-2027
 rm -rf .git build pdf      # drop the template's git history and stale artifacts
 git init                   # start fresh history for this grant
@@ -136,36 +135,59 @@ To use:
 1. Upload the whole template repo as a new Overleaf project (Menu → Upload
    ZIP), or import from a GitHub repo.
 2. Set the compiler to **LuaLaTeX** (Menu → Settings → Compiler).
-3. Set the main document for the section you're working on
-   (Menu → Settings → Main document). The `%!TEX root` directives at the
-   top of every `.tex` file mean Sublime / TeXShop / VS Code-LaTeX
-   workflows pick the right root automatically, but Overleaf needs you to
-   set the project's "main document" once per file you want to compile.
-   Typical choices:
-   - `science/research-strategy.tex` — the main writing target
-   - `science/specific-aims.tex` — to work on the Aims page
-   - `science/combined.tex` — for an internal Aims + Research Strategy preview
-   - any `support/*.tex` — when filling in admin documents
+3. Set the main document (Menu → Settings → Main document). For most
+   writing sessions, `science/combined.tex` is the best choice — see
+   workflow notes below.
 4. Recompile.
 
-**Caveats specific to Overleaf:**
+### Recommended writing workflow
 
-- You compile one main document at a time — there's no equivalent of
-  `./build.sh all`. Plan to switch the main document a few times during a
-  submission push.
-- The local build's two-PDF split for the Approach (one *with* bibliography,
-  one *without*, plus a standalone `bibliography.pdf`) doesn't work on
-  Overleaf because it depends on shell-level `\def\nobib{1}` and copying
-  `approach.bbl`. Workarounds:
-  - For internal review, compile `combined.tex` — Aims + Research Strategy
-    + bibliography in one PDF.
+Set **`science/combined.tex` as the main document and leave it there**.
+You can edit any sub-include (`significance.tex`, `approach-aim1.tex`,
+etc.) — autocompile-on-save rebuilds the full combined PDF every time,
+so you always see the section you're editing in the context of the
+whole proposal.
+
+To see just the section you're working on:
+
+- **Ctrl-click / ⌘-click** in the editor → PDF preview jumps to that
+  exact spot (SyncTeX). Reverse direction works too (click in PDF →
+  editor jumps). This is the right move 90% of the time.
+- For heavy iteration on one section, temporarily switch the main
+  document to that section (e.g., `science/significance.tex`). Compile
+  is ~10× faster because only that section rebuilds and the preview
+  shows only that section. Switch back to `combined.tex` when you want
+  to see context.
+
+**Compile speed reality check.** With the shipped lipsum placeholders
+and no figures, full `combined` compile is 2–3 seconds. With a finished
+R01 (real biblatex bibliography of ~80 entries, 8–10 figures), expect
+~10 seconds per compile on Overleaf Free. Switching the active section
+to "main" during heavy editing cuts that to 1–2 seconds.
+
+### Overleaf-specific caveats
+
+- **`%!TEX root` directives are ignored.** The directives at the top of
+  every `.tex` file are honored by Sublime / TeXShop / VS Code-LaTeX /
+  vimtex but not by Overleaf — Overleaf only respects the project-level
+  "main document" setting. The directives don't hurt anything, they're
+  just inert there.
+- **No `./build.sh all` equivalent.** You compile one main document at a
+  time; plan to switch the main document a few times during a submission
+  push to get each of the upload PDFs.
+- **No standalone `bibliography.pdf` flow.** The local build's two-PDF
+  split for the Approach (one *with* bibliography, one *without*, plus a
+  standalone `bibliography.pdf`) doesn't work on Overleaf because it
+  depends on shell-level `\def\nobib{1}` and copying `approach.bbl`.
+  Workarounds:
+  - For internal review, compile `combined.tex` — Aims + Research
+    Strategy + bibliography in one PDF.
   - For NIH submission, compile `research-strategy.tex` for the Research
     Strategy upload (bibliography suppressed), then create a second
-    Overleaf project (or just a second main document setting) that
-    compiles `bibliography.tex` after manually copying the `.bbl` from
-    Overleaf's logs. Easier: just keep using the local `build.sh` for the
-    final submission build, and use Overleaf only for collaborative
-    writing.
+    Overleaf project (or switch the main document) that compiles
+    `bibliography.tex` after manually copying the `.bbl` from Overleaf's
+    logs. Easier: just keep using the local `build.sh` for the final
+    submission build, and use Overleaf only for collaborative writing.
 
 ## Editing workflow
 
