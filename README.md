@@ -7,6 +7,8 @@ ready to be filled in for a new application.
 Builds 14 PDFs out of the box (all empty stubs) so you can verify your
 toolchain works before writing any content.
 
+Overengineered with the help of an AI coding assistant (duh).
+
 ## Quick start
 
 Copy the template to a new grant directory:
