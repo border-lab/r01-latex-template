@@ -1,0 +1,16 @@
+% custom-defns.sty — Per-grant custom command/macro definitions
+%
+% This file is loaded by both nih-r01.sty and nih-r01-support.sty, and is
+% also \usepackage'd directly in lean standalone docs (e.g.
+% science/specific-aims.tex). Anything defined here is therefore available
+% in every document in the project — science prose, support attachments,
+% and standalone PDFs alike.
+%
+% Add project-specific \newcommand / \newenvironment / \DeclareMathOperator
+% definitions below. Keep dependencies minimal: this file is loaded
+% everywhere, so heavyweight \RequirePackage's belong in nih-r01.sty (or
+% nih-r01-support.sty) instead.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom-defns}[2026/05/21 Per-grant custom definitions]
+
+% Add your custom definitions below.

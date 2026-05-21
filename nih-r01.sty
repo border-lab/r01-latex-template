@@ -82,6 +82,11 @@
 \RequirePackage{xcolor}
 \RequirePackage{colortbl}
 
+% -- Per-grant custom definitions --
+% Factored into a separate package so standalone docs (e.g. specific-aims.tex)
+% can pull in project macros without loading the full formatting package.
+\RequirePackage{custom-defns}
+
 % -- Headers/footers --
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
