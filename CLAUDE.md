@@ -14,10 +14,9 @@ for new R01s — copy the tree, drop the git history, fill in content.
 .
 ├── build.sh                # build driver (lualatex + biber + lualatex)
 ├── strip-lipsum.sh         # remove placeholder text once writing starts
-├── latexmkrc               # makes Overleaf find sty/ and .bib files
-├── sty/                    # shared style files (used by everything)
-│   ├── nih-r01.sty         # research-strategy formatting + biblatex
-│   └── nih-r01-support.sty # support-doc formatting (no bib)
+├── nih-r01.sty             # research-strategy formatting + biblatex
+├── nih-r01-support.sty     # support-doc formatting (no bib)
+├── references.bib          # Bibliography (one source for all docs)
 ├── science/                # research-strategy sources
 │   ├── specific-aims.tex          # 1-page Specific Aims (no bib)
 │   ├── significance.tex           # A. Significance
@@ -28,8 +27,7 @@ for new R01s — copy the tree, drop the git history, fill in content.
 │   ├── approach-timeline.tex      # Timeline
 │   ├── research-strategy.tex      # A+B+C combined (no bib)
 │   ├── combined.tex               # Specific Aims + Research Strategy + bib
-│   ├── bibliography.tex           # Standalone bibliography
-│   └── references.bib             # Citation entries
+│   └── bibliography.tex           # Standalone bibliography
 ├── support/                # NIH-required admin documents
 │   ├── project-title.tex
 │   ├── project-summary.tex
@@ -46,8 +44,16 @@ for new R01s — copy the tree, drop the git history, fill in content.
 
 `science/` holds the prose that goes into the NIH "Specific Aims" and
 "Research Strategy" uploads; `support/` holds the per-form attachments
-(Project Summary, Narrative, Facilities, etc.). The two trees share style
-via `sty/` and are compiled by the same `build.sh`.
+(Project Summary, Narrative, Facilities, etc.). Both trees share the
+project-root style files (`nih-r01.sty`, `nih-r01-support.sty`) and the
+project-root `references.bib`, and are compiled by the same `build.sh`.
+
+**Why .sty and .bib live at project root**: Overleaf was found to silently
+ignore project-level `latexmkrc` recursive-path tricks, so `lualatex` /
+`biber` couldn't find these files when they lived in `sty/` and `science/`.
+Putting them at the project root means kpathsea finds them via the default
+CWD search with zero configuration — same behavior in Overleaf, plain
+`lualatex`, and our `build.sh`.
 
 The biosketch is **not** included — generate via NCBI SciENcv and attach
 separately at submission time.
@@ -77,8 +83,9 @@ Build:
 
 Editing in Sublime / TeXShop / VS Code-LaTeX: every sub-include carries a
 `%!TEX root = research-strategy.tex` directive so hitting "build" inside,
-e.g., `approach-aim1.tex` compiles the right parent doc. Overleaf reads
-`latexmkrc` and finds `sty/` automatically.
+e.g., `approach-aim1.tex` compiles the right parent doc. Overleaf finds the
+project-root `.sty` and `.bib` files via the default CWD search — no
+`latexmkrc` or compiler-setting changes needed.
 
 ## When using this template for a new grant
 

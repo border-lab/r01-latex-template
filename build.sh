@@ -8,7 +8,10 @@
 #   support/   admin .tex sources (project-title/summary/narrative,
 #              resource-sharing, data-management, equipment, facilities,
 #              development-plan)
-#   sty/       shared style files (nih-r01.sty, nih-r01-support.sty)
+#   nih-r01*.sty, references.bib
+#              shared style files + bibliography at project root (so Overleaf
+#              and any other vanilla TeX setup finds them via the default
+#              kpathsea search of CWD — no TEXINPUTS / latexmkrc tricks needed)
 #   figures/   image assets referenced by \includegraphics
 #   build/     LaTeX intermediates (.aux/.bbl/.bcf/...); .gitignored
 #   pdf/       final PDFs; .gitignored
@@ -21,18 +24,17 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 SCIENCE_DIR="$ROOT/science"
 SUPPORT_DIR="$ROOT/support"
-STY_DIR="$ROOT/sty"
 BUILD_DIR="$ROOT/build"
 PDF_DIR="$ROOT/pdf"
 
 mkdir -p "$BUILD_DIR" "$PDF_DIR"
 
-# Make sty/ visible to lualatex and bib files visible to biber.
-export TEXINPUTS="$STY_DIR:$SCIENCE_DIR:$SUPPORT_DIR:$BUILD_DIR:"
-export BIBINPUTS="$SCIENCE_DIR:$BUILD_DIR:"
+# nih-r01*.sty and references.bib live at $ROOT (see Layout above).
+export TEXINPUTS="$ROOT:$SCIENCE_DIR:$SUPPORT_DIR:$BUILD_DIR:"
+export BIBINPUTS="$ROOT:$BUILD_DIR:"
 
 # Copy bib so biber finds it relative to the .bcf in build/.
-cp -u "$SCIENCE_DIR/references.bib" "$BUILD_DIR/references.bib" 2>/dev/null || true
+cp -u "$ROOT/references.bib" "$BUILD_DIR/references.bib" 2>/dev/null || true
 
 build_tex() {
     # Full pipeline: lualatex + biber + lualatex.

@@ -48,9 +48,9 @@ script is idempotent — safe to run more than once.
 ```
 .
 ├── build.sh                # build driver
-├── sty/                    # shared style files (used by everything)
-│   ├── nih-r01.sty         # research-strategy formatting + biblatex
-│   └── nih-r01-support.sty # support-doc formatting (no bib)
+├── nih-r01.sty             # research-strategy formatting + biblatex
+├── nih-r01-support.sty     # support-doc formatting (no bib)
+├── references.bib          # Bibliography — add @article entries here
 ├── science/                # research-strategy sources
 │   ├── specific-aims.tex          # 1-page Specific Aims (no bib)
 │   ├── significance.tex           # A. Significance
@@ -63,8 +63,7 @@ script is idempotent — safe to run more than once.
 │   ├── approach-timeline.tex      # Timeline
 │   ├── research-strategy.tex      # A+B+C combined (no bib)
 │   ├── combined.tex               # Specific Aims + Research Strategy + bib
-│   ├── bibliography.tex           # Standalone bibliography (reuses .bbl)
-│   └── references.bib             # Add @article entries here
+│   └── bibliography.tex           # Standalone bibliography (reuses .bbl)
 ├── support/                # NIH-required admin documents
 │   ├── project-title.tex
 │   ├── project-summary.tex
@@ -78,6 +77,13 @@ script is idempotent — safe to run more than once.
 ├── build/                  # LaTeX intermediates (.aux/.bbl/...) — gitignored
 └── pdf/                    # Final PDFs — gitignored
 ```
+
+**Why `.sty` and `.bib` live at project root**: Overleaf was found to
+silently ignore project-level `latexmkrc` recursive-path tricks, so
+`lualatex` / `biber` couldn't resolve these files when they lived in `sty/`
+and `science/`. Putting them at the root means kpathsea finds them via the
+default CWD search with zero configuration — same behavior in Overleaf,
+plain `lualatex`, and `./build.sh`.
 
 **Biosketch is not included** — generate via NCBI SciENcv and attach to the
 submission package separately.
@@ -96,8 +102,9 @@ submission package separately.
 ```
 
 Each target runs `lualatex + biber + lualatex` (or a single `lualatex` for
-docs without citations). `build.sh` sets `TEXINPUTS` so `sty/`, `science/`,
-`support/`, and `build/` are all on the search path.
+docs without citations). `build.sh` sets `TEXINPUTS` so the project root
+(holding `.sty` and `.bib`), `science/`, `support/`, and `build/` are all
+on the search path.
 
 ## What goes where in the NIH application
 
@@ -133,17 +140,23 @@ The default is a 2-aim grant. To switch to 3-aim:
    `science/innovation.tex` (each has a commented-out `Aim 3` block).
 
 The timeline header (`C.3 Timeline` vs `C.4 Timeline`) auto-renumbers from
-an `\ifaimthree` flag in `sty/nih-r01.sty` — no manual edit needed.
+an `\ifaimthree` flag in `nih-r01.sty` — no manual edit needed.
 
 To go back to 2-aim, re-comment the two `\input{approach-aim3.tex}` lines.
 
 ## Using on Overleaf
 
-The template builds on Overleaf without the shell script, with one small
-tweak that's already included: a `latexmkrc` at the project root adds every
-subdirectory to `TEXINPUTS` and `BIBINPUTS` recursively so Overleaf can find
-`sty/nih-r01.sty` and `science/references.bib` regardless of which file is
-the main document.
+The template builds on Overleaf without any tweaks. `nih-r01.sty`,
+`nih-r01-support.sty`, and `references.bib` live at the project root so
+Overleaf's kpathsea / biber find them via the default CWD search — no
+`latexmkrc`, no compiler flags, no `TEXINPUTS` magic.
+
+> *Historical note:* an earlier version of this template kept the styles in
+> `sty/` and the bibliography in `science/`, relying on a `latexmkrc` to add
+> them to the recursive search path. That worked locally but failed silently
+> on Overleaf (the `latexmkrc` was honored inconsistently or not at all),
+> producing `! LaTeX Error: File 'nih-r01.sty' not found.` Moving the three
+> files to the root made the problem go away.
 
 To use:
 
@@ -234,7 +247,7 @@ grep -rn "<.*>" science/ support/   # placeholder titles like <Aim 1 title>
 
 ## Adding citations
 
-`science/references.bib` is the only bib source. Add `@article` /
+`references.bib` (at the project root) is the only bib source. Add `@article` /
 `@incollection` / `@misc` entries as you cite them; the `numeric-comp`
 style emits them in citation order so you don't have to worry about
 ordering. Cite in text with `\cite{key}` (which is aliased to `\autocite`
@@ -248,7 +261,7 @@ skipped — the build script will say
 
 Drop image files into `figures/` at the repo root. Reference them by name
 in `\includegraphics{name.pdf}` — `\graphicspath{{../figures/}}` in
-`sty/nih-r01.sty` resolves them from both `science/` and `support/`.
+`nih-r01.sty` resolves them from both `science/` and `support/`.
 
 The shared style provides `wrapfig` for inline figures; the approach aim
 files have commented `wrapfigure` scaffolds you can uncomment and edit.
@@ -259,8 +272,8 @@ files have commented `wrapfigure` scaffolds you can uncomment and edit.
 - **`biber`**
 - **Arial font** — check with `fc-list | grep -i arial`. To fall back to
   another NIH-approved font (Georgia, Helvetica, Palatino), edit the
-  `\setmainfont{Arial}` line in both `sty/nih-r01.sty` and
-  `sty/nih-r01-support.sty`.
+  `\setmainfont{Arial}` line in both `nih-r01.sty` and
+  `nih-r01-support.sty`.
 - **LaTeX packages**: `fontspec`, `unicode-math`, `geometry`, `setspace`,
   `graphicx`, `wrapfig`, `caption`, `booktabs`, `array`, `tabularx`,
   `longtable`, `colortbl`, `enumitem`, `ulem`, `titlesec`, `biblatex`,
